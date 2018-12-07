@@ -5,11 +5,12 @@ import './ui.less';
 const TabPane = Tabs.TabPane
 export default class Modals extends React.Component {
 
+  newTabIndex = 0
   handleChange = (key) => {
     message.info(key)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const panes = [
       {
         title: 'Tab 1',
@@ -28,8 +29,41 @@ export default class Modals extends React.Component {
       },
     ]
     this.setState({
+      activeKey: panes[0].key,
       panes
     })
+  }
+
+  onChange = (activeKey) => {
+    this.setState({
+      activeKey
+    })
+  }
+
+  onEdit = (targetKey, action) => {
+    this[action](targetKey)
+  }
+
+  add = () => {
+    const panes = this.state.panes;
+    const activeKey = `newTab${this.newTabIndex++}`;
+    panes.push({ title: `New Tab${this.newTabIndex}`, content: 'Content of new Tab', key: activeKey });
+    this.setState({ panes, activeKey });
+  }
+
+  remove = (targetKey) => {
+    let activeKey = this.state.activeKey;
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (lastIndex >= 0 && activeKey === targetKey) {
+      activeKey = panes[lastIndex].key;
+    }
+    this.setState({ panes, activeKey });
   }
 
   render() {
@@ -44,19 +78,26 @@ export default class Modals extends React.Component {
         </Card>
         <Card title="标签页icon" className="card-wrap">
           <Tabs defaultActiveKey="1" onChange={this.handleChange}>
-            <TabPane tab={<span><Icon type="edit"/>Tab 1</span>} key="1">Tab1</TabPane>
+            <TabPane tab={<span><Icon type="edit" />Tab 1</span>} key="1">Tab1</TabPane>
             <TabPane tab={<span><Icon type="picture" />Tab 1</span>} key="2">Tab2</TabPane>
             <TabPane tab={<span><Icon type="team" />Tab 1</span>} key="3">Tab3</TabPane>
           </Tabs>
         </Card>
         <Card title="标签页3" className="card-wrap">
-          <Tabs defaultActiveKey="1" onChange={this.handleChange}>
+          <Tabs
+            defaultActiveKey="1"
+            activeKey={this.state.activeKey}
+            onChange={this.onChange}
+            type="editable-card"
+            onEdit={this.onEdit}
+          >
             {
               this.state.panes.map((pane) => {
                 return <TabPane
                   tab={pane.title}
                   key={pane.key}
-                  >
+                  closable={pane.closable}
+                >
                   {pane.content}
                 </TabPane>
               })

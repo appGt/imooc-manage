@@ -9,6 +9,9 @@ import Buttons from './pages/ui/buttons'
 import Modals from './pages/ui/modals'
 import Loading from './pages/ui/loading'
 import Tabs from './pages/ui/tabs'
+import Gallery from './pages/ui/gallery'
+import Carousel from './pages/ui/carousel'
+import LoginForm from './pages/form/login'
 
 export default class Router extends React.Component {
   render() {
@@ -22,11 +25,14 @@ export default class Router extends React.Component {
 
                 <Route path="/" exact component={Home} />
                 <Route path="/home" exact component={Home} />
-                <Route path="/ui/buttons" component={Buttons}></Route>
-                <Route path="/ui/modals" component={Modals}></Route>
-                <Route path="/ui/loading" component={Loading}></Route>
-                <Route path="/ui/tabs" component={Tabs}></Route>
-                <Route component={NoMatch}></Route>
+                <Route path="/ui/buttons" component={Buttons} />
+                <Route path="/ui/modals" component={Modals} />
+                <Route path="/ui/loading" component={Loading} />
+                <Route path="/ui/tabs" component={Tabs} />
+                <Route path="/ui/gallery" component={Gallery} />
+                <Route path="/ui/carousel" component={Carousel} />
+                <Route path="/form/login" component={LoginForm} />
+                <Route component={NoMatch} />
 
               </Switch>
             </Admin>

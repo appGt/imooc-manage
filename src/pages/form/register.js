@@ -201,7 +201,7 @@ class RegisterForm extends React.Component {
                     action="//jsonplaceholder.typicode.com/posts/"
                     onChange={this.handleChange}
                   >
-                    {this.state.userImg ? <img src={this.state.userImg} /> : <Icon type="plus" />}
+                    {this.state.userImg ? <img src={this.state.userImg} alt=""/> : <Icon type="plus" />}
                   </Upload>
                 )
               }

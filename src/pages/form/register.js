@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Form, Input, Checkbox, Button, Radio, Select, DatePicker, TimePicker, Switch, Icon, InputNumber, Upload, message } from 'antd'
+import { Card, Form, Input, Checkbox, Button, Radio, Select, DatePicker, Switch, Icon, InputNumber, Upload, message } from 'antd'
 import moment from 'moment'
 
 const FormItem = Form.Item

@@ -29,16 +29,16 @@ export default class Axios {
         method: 'get',
         baseURL: baseApi,
         timeout: 5000,
-        params: (options.data && options.data.params) || ''
+        params: options.params || ''
       }).then((response) => {
         if (options.params && options.isShowLoading !== false) {
           loading = document.getElementById('ajaxLoading')
           loading.style.display = 'none'
         }
-        if (response.status == '200') {
+        if (response.status === 200) {
           let res = response.data
-          if (res.code == '0') {
-            resolve(res.data)
+          if (res.code === 0) {
+            resolve(res)
           } else {
             Modal.warning({
               title: '提示',

@@ -30,7 +30,7 @@ export default class Header extends React.Component {
   // 百度天气API接口
   //http://api.map.baidu.com/telematics/v3/weather?location=beijing&output=json&ak=3p49MVra6urFRGOT9s8UBWr2
   getWeatherAPIData() {
-    let city = '北京'
+    let city = '广州'
     axios.jsonp({
       url: 'http://api.map.baidu.com/telematics/v3/weather?location=' + encodeURIComponent(city) + '&output=json&ak=3p49MVra6urFRGOT9s8UBWr2',
     }).then((res) => {

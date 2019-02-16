@@ -26,7 +26,7 @@ export default class Axios {
     return new Promise((resolve, reject) => {
       axios({
         url: options.url,
-        method: 'get',
+        method: options.type || 'get',
         baseURL: baseApi,
         timeout: 5000,
         params: options.params || ''

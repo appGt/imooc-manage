@@ -1,7 +1,6 @@
 import React from 'react'
-import { Card, Table, message, Modal, Button } from 'antd'
+import { Card, Table } from 'antd'
 import axios from '../../axios'
-import Utils from '../../utils/utils';
 
 export default class HignTable extends React.Component {
   state = {}
@@ -29,7 +28,7 @@ export default class HignTable extends React.Component {
       isShowLoading: true,
     }).then((res) => {
       res.data.list.map((item, index) => {
-        item.key = index
+        return item.key = index
       })
       this.setState({
         dataSource: res.data.list,

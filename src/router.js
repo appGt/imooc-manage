@@ -15,6 +15,7 @@ import LoginForm from './pages/form/login'
 import RegisterForm from './pages/form/register'
 import BaseTable from './pages/table/baseTable'
 import HighTable from './pages/table/highTable'
+import City from './pages/city'
 
 export default class Router extends React.Component {
   render() {
@@ -38,6 +39,7 @@ export default class Router extends React.Component {
                 <Route path="/form/reg" component={RegisterForm} />
                 <Route path="/table/basic" component={BaseTable} />
                 <Route path="/table/high" component={HighTable} />
+                <Route path="/city" component={City} />
                 <Route component={NoMatch} />
 
               </Switch>

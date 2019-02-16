@@ -1,9 +1,9 @@
 import React from 'react'
-import { Card, Table, message, Modal, Button, Select, Form } from 'antd'
+import { Card, Table, message, Modal, Button, Select, Form, } from 'antd'
 import axios from '../../axios/index'
 import Utils from './../../utils/utils'
 const FormItem = Form.Item
-const Options = Select.Option
+const Option = Select.Option
 
 export default class HignTable extends React.Component {
   state = {
@@ -16,10 +16,11 @@ export default class HignTable extends React.Component {
   }
 
   componentWillMount() {
-    this.request()
+    this.requestList()
   }
 
-  request = () => {
+  requestList = () => {
+    let _this = this
     axios.ajax({
       url: '/open_city',
       params: {
@@ -32,8 +33,8 @@ export default class HignTable extends React.Component {
         return item
       })
       this.setState({
-        list: list,
-        pagination: Utils.pagination(res, (current) => {
+        list,
+        pagination: Utils.pagination(res.data, (current) => {
           _this.params.page = current
           _this.requestList()
         })
@@ -53,12 +54,13 @@ export default class HignTable extends React.Component {
     let cityInfo = this.cityForm.props.form.getFieldsValue()
     console.log(cityInfo)
     axios.ajax({
-      url: 'city/open',
+      url: '/city/open',
+      type: 'post',
       data: {
         params: cityInfo
       }
     }).then((res) => {
-      if (res.code == '0') {
+      if (res.code === 0) {
         message.success('开通成功')
         this.setState({
           isShowOpenCity: false
@@ -82,7 +84,7 @@ export default class HignTable extends React.Component {
         title: '用车模式',
         dataIndex: 'mode',
         render(mode) {
-          return mode == 1 ? '停车点' : '禁停区'
+          return mode === 1 ? '停车点' : '禁停区'
         }
       }, {
         title: '运营模式',
@@ -93,7 +95,7 @@ export default class HignTable extends React.Component {
       },
       {
         title: '城市管理员',
-        dataIndex: 'cit_admins',
+        dataIndex: 'city_admins',
         render(arr) {
           return arr.map((item) => {
             return item.user_name
@@ -118,15 +120,15 @@ export default class HignTable extends React.Component {
     return (
       <div>
         <Card>
-          <FileForm />
+          <FilterForm />
         </Card>
         <Card style={{ marginTop: 10 }}>
           <Button type="primary" onClick={this.handleOpenCity}>开通城市</Button>
         </Card>
-        <div class="card-wrap">
+        <div className="content-wrap">
           <Table
             bordered
-            culumns={columns}
+            columns={columns}
             dataSource={this.state.list}
             pagination={this.state.pagination}
           />
@@ -153,8 +155,127 @@ class FilterForm extends React.Component {
     const { getFieldDecorator } = this.props.form
     return (
       <Form layout="inline">
-        <FormItem></FormItem>
+        <FormItem label="城市">
+          {
+            getFieldDecorator('city_id')(
+              <Select
+                style={{ width: 100 }}
+                placeholder="全部"
+              >
+                <Option value="">全部</Option>
+                <Option value="1">北京</Option>
+                <Option value="2">天津</Option>
+                <Option value="3">深圳</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem label="用车模式">
+          {
+            getFieldDecorator('mode')(
+              <Select
+                style={{ width: 120 }}
+                placeholder="全部"
+              >
+                <Option value="">全部</Option>
+                <Option value="1">指定停车点模式</Option>
+                <Option value="2">禁停区模式</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem label="营运模式">
+          {
+            getFieldDecorator('op_mode')(
+              <Select
+                style={{ width: 80 }}
+                placeholder="全部"
+              >
+                <Option value="">全部</Option>
+                <Option value="1">自营</Option>
+                <Option value="2">加盟</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem label="加盟商授权模式">
+          {
+            getFieldDecorator('auth_status')(
+              <Select
+                style={{ width: 100 }}
+                placeholder="全部"
+              >
+                <Option value="">全部</Option>
+                <Option value="1">已授权</Option>
+                <Option value="2">未授权</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem>
+          <Button type="primary" style={{ margin: '0 20px' }}>查询</Button>
+          <Button>重置</Button>
+        </FormItem>
       </Form>
     )
   }
 }
+FilterForm = Form.create({})(FilterForm)
+
+class OpenCityForm extends React.Component {
+  render() {
+    const formItemLayout = {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 19
+      }
+    }
+    const { getFieldDecorator } = this.props.form
+    return (
+      <Form layout="horizontal">
+        <FormItem label="选择城市" {...formItemLayout}>
+          {
+            getFieldDecorator('city_id', {
+              initialValue: '1'
+            })(
+              <Select style={{ width: 100 }}>
+                <Option value="0">全部</Option>
+                <Option value="1">北京</Option>
+                <Option value="2">天津</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem label="运营模式" {...formItemLayout}>
+          {
+            getFieldDecorator('op_mode', {
+              initialValue: '1'
+            })(
+              <Select style={{ width: 100 }}>
+                <Option value="1">自营</Option>
+                <Option value="2">加盟</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+        <FormItem label="用车模式" {...formItemLayout}>
+          {
+            getFieldDecorator('use_mode', {
+              initialValue: '1'
+            })(
+              <Select style={{ width: 180 }}>
+                <Option value="1">指定停车点</Option>
+                <Option value="2">禁停区</Option>
+              </Select>
+            )
+          }
+        </FormItem>
+
+
+      </Form>
+    )
+  }
+}
+OpenCityForm = Form.create({})(OpenCityForm)

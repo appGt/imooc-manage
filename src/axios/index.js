@@ -18,9 +18,9 @@ export default class Axios {
 
   static ajax(options) {
     let loading;
-    if (options.params && options.isShowLoading !== false){
+    if (options.params && options.isShowLoading !== false) {
       loading = document.getElementById('ajaxLoading')
-      loading.style.display  = 'block'
+      loading.style.display = 'block'
     }
     let baseApi = 'https://www.easy-mock.com/mock/5c149b721ee30f317685ba15/mockapi'
     return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ export default class Axios {
         url: options.url,
         method: options.type || 'get',
         baseURL: baseApi,
-        timeout: 5000,
+        // timeout: 5000,
         params: options.params || ''
       }).then((response) => {
         if (options.params && options.isShowLoading !== false) {
@@ -48,6 +48,15 @@ export default class Axios {
         } else {
           reject(response.code)
         }
+      }).catch((err) => {
+        if (options.params && options.isShowLoading !== false) {
+          loading = document.getElementById('ajaxLoading')
+          loading.style.display = 'none'
+        }
+        Modal.warning({
+          title: '提示',
+          content: '获取数据失败'
+        })
       })
     })
   }

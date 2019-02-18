@@ -22,7 +22,7 @@ export default class HignTable extends React.Component {
   requestList = () => {
     let _this = this
     axios.ajax({
-      url: '/open_city',
+      url: '/open/city',
       params: {
         page: this.params.page
       },

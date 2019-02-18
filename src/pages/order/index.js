@@ -24,7 +24,7 @@ export default class order extends React.Component {
       list: [{ id: '0', name: '全部' }, { id: '1', name: '北京' }, { id: '2', name: '天津' }, { id: '3', name: '上海' }]
     },
     {
-      type: '时间查询',
+      type: '时间查询'
     },
     {
       type: 'SELECT',

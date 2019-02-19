@@ -27,15 +27,15 @@ class FilterForm extends React.Component {
           const begin_time = <FormItem label="订单时间" key={field}>
             {
               getFieldDecorator('begin_time')(
-                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
+                <DatePicker showTime={true} placeholder="开始时间" format="YYYY-MM-DD HH:mm:ss" />
               )
             }
           </FormItem>
           formItemList.push(begin_time)
-          const end_time = <FormItem label="~" key={field}>
+          const end_time = <FormItem label="~" key={field} colon={false}>
             {
               getFieldDecorator('end_time')(
-                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
+                <DatePicker showTime={true} placeholder="结束时间"format="YYYY-MM-DD HH:mm:ss" />
               )
             }
           </FormItem>
@@ -43,7 +43,7 @@ class FilterForm extends React.Component {
         } else if (item.type === 'INPUT') {
           const INPUT = <FormItem label={label} key={field}>
             {
-              getFieldDecorator([field])(
+              getFieldDecorator(field)(
                 < Input type="text" placeholder={placeholder} />
               )
             }
@@ -52,7 +52,7 @@ class FilterForm extends React.Component {
         } else if (item.type === 'SELECT') {
           const SELECT = <FormItem label={label} key={field}>
             {
-              getFieldDecorator([field], {
+              getFieldDecorator(field, {
                 initialValue: initialValue
               })(
                 <Select
@@ -68,7 +68,7 @@ class FilterForm extends React.Component {
         } else if (item.iype === 'CHECKBOX') {
           const CHECKBOX = <FormItem label={label} key={field}>
             {
-              getFieldDecorator([field], {
+              getFieldDecorator(field, {
                 valuePropName: 'checked',
                 initialValue: initialValue
               })(
@@ -84,15 +84,13 @@ class FilterForm extends React.Component {
   }
 
   render() {
-    return (<Form layou="inline">
+    return (<Form layout="inline">
       {this.initFormList()}
       <FormItem>
-        <Button type="primary" onClick={this.handleFilterSubmit} style={{ marginLeft: 20 }}>
+        <Button type="primary" onClick={this.handleFilterSubmit} style={{ margin: '0 20px' }}>
           查询
         </Button>
-        <Button type="primary" onClick={this.reset}>
-          重置
-        </Button>
+        <Button type="primary" onClick={this.reset}>重置</Button>
       </FormItem>
     </Form>)
   }

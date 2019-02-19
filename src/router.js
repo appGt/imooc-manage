@@ -17,6 +17,8 @@ import BaseTable from './pages/table/baseTable'
 import HighTable from './pages/table/highTable'
 import City from './pages/city'
 import Order from './pages/order'
+import Common from './common'
+import OrderDetail from './pages/order/detail'
 
 export default class Router extends React.Component {
   render() {
@@ -47,7 +49,12 @@ export default class Router extends React.Component {
               </Switch>
             </Admin>
           } />
-          <Route path="/order/detail" component={Login} />
+          <Route path="/common" render={() => 
+            <Common>
+              <Route path="/common/order/detail/:orderId" component={OrderDetail} />
+            </Common>
+          } />
+          
         </App>
       </HashRouter>
     )

@@ -16,7 +16,7 @@ export default class Gallery extends React.Component {
     const imgList = imgs.map((list) => list.map((item, i) =>
       <Card
         style={{ marginBottom: 10 }}
-        cover={<img src={'/assets/gallery/' + item} alt="img"/>}
+        cover={<img src={'./assets/gallery/' + item} alt="img"/>}
         key={i}
       >
         <Card.Meta

@@ -22,7 +22,7 @@ export default class Order extends React.Component {
         }
       }
     }).then((res) => {
-      if (res.code == 0) {
+      if (res.code === 0) {
         this.setState({
           orderInfo: res.result
         })
@@ -122,7 +122,7 @@ export default class Order extends React.Component {
             <ul className="detail-form">
               <li>
                 <div className="detail-form-left">用车模式</div>
-                <div className="detail-form-content">{info.mode == 1 ? '服务区' : '停车点'}</div>
+                <div className="detail-form-content">{info.mode === 1 ? '服务区' : '停车点'}</div>
               </li>
               <li>
                 <div className="detail-form-left">订单编号</div>

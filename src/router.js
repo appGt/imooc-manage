@@ -25,36 +25,40 @@ export default class Router extends React.Component {
     return (
       <HashRouter>
         <App>
-          <Route path="/login" component={Login} />
-          <Route path="/" render={() =>
-            <Admin>
-              <Switch>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/common" render={() =>
+              <Common>
+                <Route path="/common/order/detail/:orderId" component={OrderDetail} />
+              </Common>
+            } />
+            <Route path="/" render={() =>
+              <Admin>
+                <Switch>
 
-                <Route path="/" exact component={Home} />
-                <Route path="/home" exact component={Home} />
-                <Route path="/ui/buttons" component={Buttons} />
-                <Route path="/ui/modals" component={Modals} />
-                <Route path="/ui/loading" component={Loading} />
-                <Route path="/ui/tabs" component={Tabs} />
-                <Route path="/ui/gallery" component={Gallery} />
-                <Route path="/ui/carousel" component={Carousel} />
-                <Route path="/form/login" component={LoginForm} />
-                <Route path="/form/reg" component={RegisterForm} />
-                <Route path="/table/basic" component={BaseTable} />
-                <Route path="/table/high" component={HighTable} />
-                <Route path="/city" component={City} />
-                <Route path="/order" component={Order} />
-                <Route component={NoMatch} />
+                  <Route path="/" exact component={Home} />
+                  <Route path="/home" exact component={Home} />
+                  <Route path="/ui/buttons" component={Buttons} />
+                  <Route path="/ui/modals" component={Modals} />
+                  <Route path="/ui/loading" component={Loading} />
+                  <Route path="/ui/tabs" component={Tabs} />
+                  <Route path="/ui/gallery" component={Gallery} />
+                  <Route path="/ui/carousel" component={Carousel} />
+                  <Route path="/form/login" component={LoginForm} />
+                  <Route path="/form/reg" component={RegisterForm} />
+                  <Route path="/table/basic" component={BaseTable} />
+                  <Route path="/table/high" component={HighTable} />
+                  <Route path="/city" component={City} />
+                  <Route path="/order" component={Order} />
+                  <Route component={NoMatch} />
 
-              </Switch>
-            </Admin>
-          } />
-          <Route path="/common" render={() => 
-            <Common>
-              <Route path="/common/order/detail/:orderId" component={OrderDetail} />
-            </Common>
-          } />
-          
+                </Switch>
+              </Admin>
+            } />
+
+          </Switch>
+
+
         </App>
       </HashRouter>
     )

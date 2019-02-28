@@ -24,9 +24,9 @@ export default class Order extends React.Component {
     }).then((res) => {
       if (res.code === 0) {
         this.setState({
-          orderInfo: res.result
+          orderInfo: res.data
         })
-        this.renderMap(res.result);
+        this.renderMap(res.data);
       }
     })
   }

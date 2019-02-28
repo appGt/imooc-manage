@@ -19,6 +19,7 @@ import City from './pages/city'
 import Order from './pages/order'
 import Common from './common'
 import OrderDetail from './pages/order/detail'
+import BikeMap from './pages/map/bikeMap'
 
 export default class Router extends React.Component {
   render() {
@@ -50,6 +51,7 @@ export default class Router extends React.Component {
                   <Route path="/table/high" component={HighTable} />
                   <Route path="/city" component={City} />
                   <Route path="/order" component={Order} />
+                  <Route path="/bikeMap" component={BikeMap} />
                   <Route component={NoMatch} />
 
                 </Switch>

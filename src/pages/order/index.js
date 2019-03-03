@@ -11,7 +11,8 @@ export default class order extends React.Component {
     orderConfirmVisable: false
   }
   params = {
-    page: 1
+    page: 1,
+    pageSize: 10
   }
   formList = [
     {

@@ -4,15 +4,10 @@ import { Modal } from 'antd'
 import Utils from '../utils/utils'
 export default class Axios {
 
-  static requestList(_this, url, params, isMock) {
-    let data = {
-      params,
-      isMock
-    }
-
+  static requestList(_this, url, params) {
     this.ajax({
       url,
-      data
+      params
     }).then(res => {
       if(res && res. data){
         let list = res.data.list.map((item, index) => {
@@ -57,7 +52,7 @@ export default class Axios {
         method: options.type || 'get',
         baseURL: baseApi,
         // timeout: 5000,
-        params: options.params || ''
+        params: options.params.params || ''
       }).then((response) => {
         if (options.params && options.isShowLoading !== false) {
           loading = document.getElementById('ajaxLoading')

@@ -8,7 +8,7 @@ export default class BikeMap extends React.Component {
   state = {}
   map = ''
 
-  componentWillMount(){
+  componentWillMount() {
     this.requestList()
   }
 
@@ -60,11 +60,70 @@ export default class BikeMap extends React.Component {
   renderMap = (res) => {
     let list = res.route_list
     this.map = new window.BMap.Map('container')
+    //添加地图控件
+    this.map.addControl(new window.BMap.ScaleControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }));
+    this.map.addControl(new window.BMap.NavigationControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }));
+
+    //绘制起点终点
     let gps1 = list[0].split(',')
     let startPoint = new window.BMap.Point(gps1[0], gps1[1])
     let gps2 = list[list.length - 1].split(',')
     let endPoint = new window.BMap.Point(gps2[0], gps2[1])
     this.map.centerAndZoom(endPoint, 11)
+
+    let startPointIcon = new window.BMap.Icon('./assets/start_point.png', new window.BMap.Size(36, 42), {
+      imageSize: new window.BMap.Size(36, 42),
+      anchor: new window.BMap.Size(18, 42) //设置起终点偏移
+    })
+    let bikeMarerStart = new window.BMap.Marker(startPoint, { icon: startPointIcon })
+    this.map.addOverlay(bikeMarerStart)
+    let endPointIcon = new window.BMap.Icon('./assets/end_point.png', new window.BMap.Size(36, 42), {
+      imageSize: new window.BMap.Size(36, 42),
+      anchor: new window.BMap.Size(18, 42) //设置起终点偏移
+    })
+    let bikeMarerEnd = new window.BMap.Marker(endPoint, { icon: endPointIcon })
+    this.map.addOverlay(bikeMarerEnd)
+
+    //绘制车辆行驶路线
+    let routeList = []
+    list.forEach((item) => {
+      let p = item.split(',')
+      routeList.push(new window.BMap.Point(p[0], p[1]))
+    })
+
+    let polyLine = new window.BMap.Polyline(routeList, {
+      strokerColor: '#ef4136',
+      strokeWeiht: 2,
+      strokeOpacity: 1
+    })
+    this.map.addOverlay(polyLine)
+
+    //绘制服务区
+    let servicePointList = []
+    let serviceList = res.service_list
+    serviceList.forEach((item) => {
+      servicePointList.push((new window.BMap.Point(item.lon, item.lat)))
+    })
+
+    let serviceLine = new window.BMap.Polyline(servicePointList, {
+      strokerColor: '#ef4136',
+      strokeWeiht: 2,
+      strokeOpacity: 1
+    })
+    this.map.addOverlay(serviceLine)
+
+    //绘制地图中的自行车图标
+    let bikeList = res.bike_list
+    let bikeIcon = new window.BMap.Icon('./assets/bike.jpg', new window.BMap.Size(36, 42), {
+      imageSize: new window.BMap.Size(36, 42),
+      anchor: new window.BMap.Size(18, 42) //设置起终点偏移
+    })
+    bikeList.forEach((item) => {
+      let p = item.split(',')
+      let point = new window.BMap.Point(p[0], p[1])
+      let bikeMarker = new window.BMap.Marker(point, { icon: bikeIcon })
+      this.map.addOverlay(bikeMarker)
+    })
   }
 
   render() {

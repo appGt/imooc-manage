@@ -20,6 +20,8 @@ import Order from './pages/order'
 import Common from './common'
 import OrderDetail from './pages/order/detail'
 import BikeMap from './pages/map/bikeMap'
+import Bar from './pages/echarts/bar'
+import Pie from './pages/echarts/pie'
 
 export default class Router extends React.Component {
   render() {
@@ -52,6 +54,8 @@ export default class Router extends React.Component {
                   <Route path="/city" component={City} />
                   <Route path="/order" component={Order} />
                   <Route path="/bikeMap" component={BikeMap} />
+                  <Route path="/charts/bar" component={Bar} />
+                  <Route path="/charts/pie" component={Pie} />
                   <Route component={NoMatch} />
 
                 </Switch>

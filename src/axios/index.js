@@ -52,7 +52,7 @@ export default class Axios {
         method: options.type || 'get',
         baseURL: baseApi,
         // timeout: 5000,
-        params: options.params.params || ''
+        params: options.data.params || ''
       }).then((response) => {
         if (options.params && options.isShowLoading !== false) {
           loading = document.getElementById('ajaxLoading')

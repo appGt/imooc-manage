@@ -7,6 +7,7 @@ export default class BikeMap extends React.Component {
 
   state = {}
   map = ''
+  params = {}
 
   componentWillMount() {
     this.requestList()

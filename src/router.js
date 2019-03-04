@@ -22,6 +22,7 @@ import OrderDetail from './pages/order/detail'
 import BikeMap from './pages/map/bikeMap'
 import Bar from './pages/echarts/bar'
 import Pie from './pages/echarts/pie'
+import Rich from './pages/rich/rich'
 
 export default class Router extends React.Component {
   render() {
@@ -56,6 +57,7 @@ export default class Router extends React.Component {
                   <Route path="/bikeMap" component={BikeMap} />
                   <Route path="/charts/bar" component={Bar} />
                   <Route path="/charts/pie" component={Pie} />
+                  <Route path="/rich" component={Rich} />
                   <Route component={NoMatch} />
 
                 </Switch>

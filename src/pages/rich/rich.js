@@ -1,6 +1,6 @@
 import React from 'react'
-import {Button,Card,Modal} from 'antd'
-import {Editor} from 'react-draft-wysiwyg'
+import { Button, Card, Modal } from 'antd'
+import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftjs from 'draftjs-to-html'
 
@@ -60,9 +60,13 @@ export default class RichText extends React.Component {
               showRichText: false
             })
           }}>
-          {draftjs(this.state.contentState)}
+          {
+            <div dangerouslySetInnerHTML={{ __html: draftjs(this.state.contentState) }}>
+
+            </div>
+          }
         </Modal>
-      </div>
+      </div >
     )
   }
 }

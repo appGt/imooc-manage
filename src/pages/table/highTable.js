@@ -22,7 +22,7 @@ export default class HignTable extends React.Component {
   request = () => {
     axios.ajax({
       url: '/table/high/list',
-      params: {
+      data: {
         page: this.params.page
       },
       isShowLoading: true,

@@ -45,7 +45,7 @@ export default class BaseTable extends React.Component {
     let _this = this
     axios.ajax({
       url: '/table/list',
-      params: {
+      data: {
         page: this.params.page
       },
       isShowLoading: true,
